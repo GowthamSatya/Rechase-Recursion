@@ -1,0 +1,191 @@
+.typewriter {
+  overflow: hidden;
+  border-right: 0.15em solid orange;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: 0.15em;
+  animation: typing 3.5s steps(40, end), cursor 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 35%;
+  }
+}
+
+@keyframes cursor {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: white;
+  }
+}
+
+.heading-jump {
+  position: relative;
+  display: flex;
+  font-size: 4rem;
+  font-family: "Cinzel", serif !important;
+}
+
+@keyframes up {
+  0% {
+    transform: translateY(0);
+  }
+  10% {
+    transform: translateY(-5px);
+  }
+  20% {
+    transform: translateY(-10px);
+  }
+  30% {
+    transform: translateY(-15px);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  50% {
+    transform: translateY(-25px);
+  }
+  60% {
+    transform: translateY(-30px);
+  }
+  70% {
+    transform: translateY(-35px);
+  }
+  80% {
+    transform: translateY(-40px);
+  }
+  90% {
+    transform: translateY(-45px);
+  }
+  100% {
+    transform: translateY(-50px);
+  }
+}
+
+@keyframes down {
+  0% {
+    transform: translateY(0);
+  }
+  10% {
+    transform: translateY(5px);
+  }
+  20% {
+    transform: translateY(10px);
+  }
+  30% {
+    transform: translateY(15px);
+  }
+  40% {
+    transform: translateY(20px);
+  }
+  50% {
+    transform: translateY(25px);
+  }
+  60% {
+    transform: translateY(30px);
+  }
+  70% {
+    transform: translateY(35px);
+  }
+  80% {
+    transform: translateY(40px);
+  }
+  90% {
+    transform: translateY(45px);
+  }
+  100% {
+    transform: translateY(50px);
+  }
+}
+
+.r {
+  animation: up 2s ease;
+  margin-right: 20px;
+}
+
+.E {
+  animation: down 2s ease;
+  margin-right: 20px;
+}
+
+.c {
+  animation: up 2s ease;
+  margin-right: 20px;
+}
+
+.h {
+  animation: down 2s ease;
+  margin-right: 20px;
+}
+
+.a {
+  animation: up 2s ease;
+  margin-right: 20px;
+}
+
+.s {
+  animation: down 2s ease;
+  margin-right: 20px;
+}
+
+.e {
+  animation: up 2s ease;
+  margin-right: 20px;
+}
+
+.top {
+  padding: 20px;
+  width: 10px;
+  height: 10px;
+  transform: translateY(30px);
+}
+
+.bottom {
+  padding: 20px;
+  transform: translateY(-30px);
+}
+
+ul {
+  list-style-type: decimal;
+}
+
+th {
+  width: 100%;
+  border: 1px solid white;
+  background-color: hsl(0, 99%, 33%);
+  padding: 8px;
+}
+
+tr {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+td {
+  padding: 6px;
+  border: 1px solid white;
+}
+
+td {
+  width: 100%;
+  text-align: center;
+}
+
+svg {
+  width: 15px;
+}
+
+.rec-icon {
+  min-width: 28px !important;
+  min-height: 25px !important;
+  margin-top: 5px !important;
+}

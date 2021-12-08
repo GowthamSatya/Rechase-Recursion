@@ -1,0 +1,19 @@
+{
+    "questions" :[
+        {
+        "id": "1",
+        "question": "What is your name?",
+        "answer" : "G"
+        },
+        {
+            "id": "2",
+            "question": "What is your age?",
+            "answer" : "G"
+        },
+        {
+            "id": "3",
+            "question": "What is your Study",
+            "answer" : "G"
+        }
+    ]
+}
