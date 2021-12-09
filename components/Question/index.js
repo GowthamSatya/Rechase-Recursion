@@ -18,7 +18,7 @@ export const QuestionBox = ({
 
         <input
           type="text"
-          className="w-1/2 bg-black border-b mb-4 border-white text-white text-2xl font-medium"
+          className="w-1/2 ml-6 bg-black border-b my-4 border-white text-white text-2xl font-medium"
           placeholder="Enter Answer Here"
           value={value}
           onChange={onAnswerChange}
@@ -26,7 +26,7 @@ export const QuestionBox = ({
 
         <a
           href={href}
-          className="bg-blue-500 hover:bg-blue-700 text-white w-32 text-center font-bold py-2 px-4 rounded"
+          className="w-36 ml-6 text-center mt-10 font-archivo font-bold text-white rounded-lg bg-glow hover:text-white hover:shadow-glow p-2"
           onClick={onSubmit}
         >
           Submit

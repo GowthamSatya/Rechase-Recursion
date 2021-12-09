@@ -106,19 +106,25 @@ export default function Home({ users }) {
           <span className="e">e</span>
         </h1>
 
-        {finduser && !finduser[0].score > 0 ? (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              router.push("/questions/1");
-            }}
-            className="bg-blue-500 hover:bg-blue-700 text-white w-32 text-center font-bold py-2 px-4 rounded"
-          >
-            Take Quiz
-          </button>
+        {session ? (
+          finduser && finduser[0] && finduser[0].score > 0 ? (
+            <h1 className="font-orbit text-white text-center font-bold py-2 px-4 rounded">
+              You have already taken the quiz
+            </h1>
+          ) : (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/questions/1");
+              }}
+              className="mx-4 font-archivo font-bold text-white rounded-lg bg-glow hover:text-white hover:shadow-glow p-2"
+            >
+              Take Quiz
+            </button>
+          )
         ) : (
           <h1 className="font-orbit text-white text-center font-bold py-2 px-4 rounded">
-            You have already taken the quiz
+            Sign In to Take Quiz
           </h1>
         )}
       </main>
