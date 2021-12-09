@@ -1,34 +1,32 @@
 import { useState } from "react";
-import axios from "axios";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useSession, signIn, signOut } from "next-auth/client";
 import Form from "../components/Form";
 
-export default function Home() {
+export default function Home({ users }) {
+  const router = useRouter();
   const [session, loading] = useSession();
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
-  const [users, setUsers] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const fetchUsers = async () => {
-    const response = await fetch("/api/userdata");
-    const data = await response.json();
+  const finduser =
+    session && users && users.filter((u) => u.username === session.user.name);
 
-    setUsers(data);
-  };
   const handleClick = async () => {
     (!name || !mobile) && alert("Please fill all the fields");
 
-    const response = await fetch("/api/userdata", {
+    const response = await fetch("http://localhost:3000/users", {
       method: "POST",
       body: JSON.stringify({
         name,
         mobile,
         email: session.user.email,
         username: session.user.name,
+        score: 0,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +34,6 @@ export default function Home() {
     });
 
     const data = await response.json();
-    console.log(data);
     setIsSubmitted(true);
   };
 
@@ -83,13 +80,13 @@ export default function Home() {
         ></script>
       </Head>
 
-      {session && (
+      {session && !finduser.length > 0 && !isSubmitted && (
         <Form
           name={name}
           mobile={mobile}
           onNameChange={(e) => setName(e.target.value)}
           onNumberChange={(e) => setMobile(e.target.value)}
-          handleClick={() => handleClick}
+          handleClick={handleClick}
         />
       )}
 
@@ -108,12 +105,45 @@ export default function Home() {
           <span className="s">s</span>
           <span className="e">e</span>
         </h1>
-        <p className="font-orbit text-center text-white text-md lg:text-3xl md:text-2xl sm:text-xl">
-          REChase Completed !! Visit LeaderBoard !!
-        </p>
+
+        {finduser && !finduser[0].score > 0 ? (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              router.push("/questions/1");
+            }}
+            className="bg-blue-500 hover:bg-blue-700 text-white w-32 text-center font-bold py-2 px-4 rounded"
+          >
+            Take Quiz
+          </button>
+        ) : (
+          <h1 className="font-orbit text-white text-center font-bold py-2 px-4 rounded">
+            You have already taken the quiz
+          </h1>
+        )}
       </main>
 
       <Footer className="absolute bottom-0 bg-opacity-60" />
     </div>
   );
+}
+
+export async function getStaticProps(context) {
+  const res = await fetch("http://localhost:3000/users");
+  const users = await res.json();
+
+  if (!users) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      users,
+    },
+  };
 }

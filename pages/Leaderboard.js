@@ -3,7 +3,7 @@ import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-export default function leaderboard() {
+export default function leaderboard({ users }) {
   return (
     <div className="bg-skeleton flex flex-col h-screen">
       <Head>
@@ -48,7 +48,16 @@ export default function leaderboard() {
             <th>Score</th>
           </thead>
           <tbody className="w-full flex flex-col items-center">
-            <tr>
+            {users.map((user, index) => {
+              return (
+                <tr>
+                  <td>{index + 1}</td>
+                  <td>{user.name}</td>
+                  <td>{user.score}</td>
+                </tr>
+              );
+            })}
+            {/* <tr>
               <td>1</td>
               <td>Anuj Patel</td>
               <td>100</td>
@@ -87,11 +96,31 @@ export default function leaderboard() {
               <td>8</td>
               <td>Team by Demol</td>
               <td>0</td>
-            </tr>
+            </tr> */}
           </tbody>
         </table>
       </div>
-      <Footer className="bg-opacity-50" />
+      <Footer className="absolute bottom-0 bg-opacity-50" />
     </div>
   );
+}
+
+export async function getStaticProps(context) {
+  const res = await fetch("http://localhost:3000/users");
+  const users = await res.json();
+
+  if (!users) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      users,
+    },
+  };
 }

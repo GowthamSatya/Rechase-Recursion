@@ -1,0 +1,33 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Sebastian",
+      "username": "Eschweiler",
+      "email": "sebastian@codingthesmartway.com",
+      "score": 0
+    },
+    {
+      "id": 2,
+      "name": "Steve",
+      "username": "Palmer",
+      "email": "steve@codingthesmartway.com",
+      "score": 0
+    },
+    {
+      "id": 3,
+      "name": "Ann",
+      "username": "Smith",
+      "email": "ann@codingthesmartway.com",
+      "score": 0
+    },
+    {
+      "name": "M",
+      "mobile": "123",
+      "email": "gowthamsatya5@gmail.com",
+      "username": "Satya Gowtham",
+      "score": 3,
+      "id": 4
+    }
+  ]
+}
