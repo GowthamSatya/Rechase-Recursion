@@ -20,61 +20,75 @@ const QuestionPage = ({ users }) => {
     });
   }, [router.isReady]);
 
-  useEffect(() => {
-    localStorage.getItem("score");
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("score", score);
-  }, [score]);
-
-  console.log(score);
-  console.log(question);
-
   const finduser =
     session && users && users.filter((u) => u.username === session.user.name);
 
+  if (question.id === 1 && finduser && finduser[0].score >= 1) {
+    alert("You have already answered the quiz");
+    router.push("/");
+  }
+
   return (
-    <div>
-      <QuestionBox
-        id={question.id}
-        question={question.question}
-        value={answer}
-        onAnswerChange={(e) => {
-          e.preventDefault();
-          setAnswer(e.target.value);
-        }}
-        href={
-          answer === question.answer && question.id === questionsData.length
-            ? "/"
-            : `http://localhost:8000/questions/${question.id + 1}`
-        }
-        onSubmit={async (e) => {
-          if (answer === question.answer) {
-            setScore(score + 1);
-
-            const response = await fetch(
-              `http://localhost:3000/users/${finduser[0].id}`,
-              {
-                method: "PATCH",
-                body: JSON.stringify({
-                  score: finduser[0].score + 1,
-                }),
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
-            );
-
-            const body = await response.json();
-          } else {
-            alert("Wrong answer");
+    <Auth>
+      <div>
+        <QuestionBox
+          id={question.id}
+          question={question.question}
+          value={answer}
+          onAnswerChange={(e) => {
+            e.preventDefault();
+            setAnswer(e.target.value);
+          }}
+          href={
+            answer === question.answer && question.id === questionsData.length
+              ? "/"
+              : `http://localhost:8000/questions/${question.id + 1}`
           }
-        }}
-      />
-    </div>
+          onSubmit={async (e) => {
+            if (answer === question.answer) {
+              setScore(score + 1);
+
+              const response = await fetch(
+                `http://localhost:3000/users/${finduser[0].id}`,
+                {
+                  method: "PATCH",
+                  body: JSON.stringify({
+                    score: finduser[0].score + 1,
+                  }),
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                }
+              );
+
+              const body = await response.json();
+            } else {
+              alert("Wrong answer");
+            }
+          }}
+        />
+      </div>
+    </Auth>
   );
 };
+
+function Auth({ children, users }) {
+  const [session, loading] = useSession();
+  const router = useRouter();
+  const isUser = !!session?.user;
+  useEffect(() => {
+    if (loading) return;
+    if (!isUser) {
+      alert("Please login to answer the question");
+      router.push("/");
+    }
+  }, [isUser, loading]);
+
+  if (isUser) {
+    return children;
+  }
+  return <div>Loading...</div>;
+}
 
 export async function getStaticPaths() {
   return {
