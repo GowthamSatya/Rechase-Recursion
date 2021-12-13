@@ -73,7 +73,7 @@ export default function Home({ users }) {
       }
     );
     redirectTo("/");
-    setCode(code);
+    setTeamCode(code);
   };
 
   const handleJoinClick = (e) => {

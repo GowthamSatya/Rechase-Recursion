@@ -30,6 +30,14 @@ const QuestionPage = ({ users }) => {
     setUser(currentUser[0]);
   }, [currentUser]);
 
+  if (user && (user.score < question.id - 1 || user.score > question.id - 1)) {
+    if (user.score == 3) {
+      redirectTo("/");
+    } else {
+      redirectTo(`/questions/${user.score + 1}`);
+    }
+  }
+
   return (
     <Auth>
       <div>
@@ -58,7 +66,11 @@ const QuestionPage = ({ users }) => {
               );
 
               setQuestionId(question.id + 1);
-              redirectTo(`/questions/${question.id + 1}`);
+              if (question.id > 3) {
+                redirectTo("/");
+              } else {
+                redirectTo(`/questions/${question.id + 1}`);
+              }
 
               const body = await response.json();
             } else {
