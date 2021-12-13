@@ -30,14 +30,6 @@ const QuestionPage = ({ users }) => {
     setUser(currentUser[0]);
   }, [currentUser]);
 
-  if (user && (user.score < question.id - 1 || user.score > question.id - 1)) {
-    redirectTo(`/questions/${user.score + 1}`);
-  }
-
-  if (question.id > 3) {
-    redirectTo("/");
-  }
-
   return (
     <Auth>
       <div>
