@@ -48,15 +48,18 @@ export default function leaderboard({ users }) {
             <th>Score</th>
           </thead>
           <tbody className="w-full flex flex-col items-center">
-            {users.map((user, index) => {
-              return (
-                <tr>
-                  <td>{index + 1}</td>
-                  <td>{user.name}</td>
-                  <td>{user.score}</td>
-                </tr>
-              );
-            })}
+            {users
+              .sort((a, b) => b.score - a.score)
+              .map((user, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{user.name}</td>
+                    <td>{user.score}</td>
+                  </tr>
+                );
+              })}
+
             {/* <tr>
               <td>1</td>
               <td>Anuj Patel</td>
@@ -106,7 +109,7 @@ export default function leaderboard({ users }) {
 }
 
 export async function getStaticProps(context) {
-  const res = await fetch("http://localhost:3000/users");
+  const res = await fetch("https://stormy-plateau-60436.herokuapp.com/users");
   const users = await res.json();
 
   if (!users) {

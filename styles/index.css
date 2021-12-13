@@ -30,114 +30,37 @@
   position: relative;
   display: flex;
   font-size: 4rem;
-  font-family: "Cinzel", serif !important;
 }
 
 @keyframes up {
-  0% {
+  from {
     transform: translateY(0);
   }
-  10% {
-    transform: translateY(-5px);
-  }
-  20% {
-    transform: translateY(-10px);
-  }
-  30% {
-    transform: translateY(-15px);
-  }
-  40% {
-    transform: translateY(-20px);
-  }
-  50% {
-    transform: translateY(-25px);
-  }
-  60% {
-    transform: translateY(-30px);
-  }
-  70% {
-    transform: translateY(-35px);
-  }
-  80% {
-    transform: translateY(-40px);
-  }
-  90% {
-    transform: translateY(-45px);
-  }
-  100% {
+  to {
     transform: translateY(-50px);
   }
 }
 
 @keyframes down {
-  0% {
+  from {
     transform: translateY(0);
   }
-  10% {
-    transform: translateY(5px);
-  }
-  20% {
-    transform: translateY(10px);
-  }
-  30% {
-    transform: translateY(15px);
-  }
-  40% {
-    transform: translateY(20px);
-  }
-  50% {
-    transform: translateY(25px);
-  }
-  60% {
-    transform: translateY(30px);
-  }
-  70% {
-    transform: translateY(35px);
-  }
-  80% {
-    transform: translateY(40px);
-  }
-  90% {
-    transform: translateY(45px);
-  }
-  100% {
+  to {
     transform: translateY(50px);
   }
 }
 
-.r {
-  animation: up 2s ease;
-  margin-right: 20px;
+.up {
+  animation: up 3s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  margin: 0 20px;
 }
 
-.E {
-  animation: down 2s ease;
-  margin-right: 20px;
-}
-
-.c {
-  animation: up 2s ease;
-  margin-right: 20px;
-}
-
-.h {
-  animation: down 2s ease;
-  margin-right: 20px;
-}
-
-.a {
-  animation: up 2s ease;
-  margin-right: 20px;
-}
-
-.s {
-  animation: down 2s ease;
-  margin-right: 20px;
-}
-
-.e {
-  animation: up 2s ease;
-  margin-right: 20px;
+.down {
+  animation: down 3s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  animation-iteration-count: 1;
 }
 
 .top {

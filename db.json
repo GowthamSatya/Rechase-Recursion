@@ -22,12 +22,13 @@
       "score": 0
     },
     {
-      "name": "g",
-      "mobile": "123",
+      "name": "gowtham",
+      "mobile": "1234567890",
       "email": "gowthamsatya5@gmail.com",
       "username": "Satya Gowtham",
-      "score": 1,
-      "id": 4
+      "score": 0,
+      "id": 4,
+      "teamcode": 3671
     }
   ]
 }

@@ -8,8 +8,10 @@ const QuestionPage = ({ users }) => {
   const [session, loading] = useSession();
   const router = useRouter();
   const [answer, setAnswer] = useState("");
-  const [score, setScore] = useState(0);
   const [question, setQuestion] = useState({});
+  const [questionId, setQuestionId] = useState(1);
+  const [user, setUser] = useState({});
+
   useEffect(() => {
     if (!router.isReady) return;
     const questionId = router.query.questionId;
@@ -20,12 +22,20 @@ const QuestionPage = ({ users }) => {
     });
   }, [router.isReady]);
 
-  const finduser =
-    session && users && users.filter((u) => u.username === session.user.name);
+  const currentUser =
+    session && users.filter((user) => user.username == session.user?.name);
 
-  if (question.id === 1 && finduser && finduser[0].score >= 1) {
-    alert("You have already answered the quiz");
-    router.push("/");
+  useEffect(() => {
+    if (!currentUser) return;
+    setUser(currentUser[0]);
+  }, [currentUser]);
+
+  if (user && (user.score < question.id - 1 || user.score > question.id - 1)) {
+    redirectTo(`/questions/${user.score + 1}`);
+  }
+
+  if (question.id > 3) {
+    redirectTo("/");
   }
 
   return (
@@ -39,21 +49,15 @@ const QuestionPage = ({ users }) => {
             e.preventDefault();
             setAnswer(e.target.value);
           }}
-          href={
-            answer === question.answer && question.id === questionsData.length
-              ? "/"
-              : `http://localhost:8000/questions/${question.id + 1}`
-          }
-          onSubmit={async (e) => {
+          onSubmit={async () => {
             if (answer === question.answer) {
-              setScore(score + 1);
-
+              await user.score++;
               const response = await fetch(
-                `http://localhost:3000/users/${finduser[0].id}`,
+                `https://stormy-plateau-60436.herokuapp.com/users/${user.id}`,
                 {
                   method: "PATCH",
                   body: JSON.stringify({
-                    score: finduser[0].score + 1,
+                    score: question.id,
                   }),
                   headers: {
                     "Content-Type": "application/json",
@@ -61,9 +65,13 @@ const QuestionPage = ({ users }) => {
                 }
               );
 
+              setQuestionId(question.id + 1);
+              redirectTo(`/questions/${question.id + 1}`);
+
               const body = await response.json();
             } else {
               alert("Wrong answer");
+              redirectTo(`/questions/${question.id}`);
             }
           }}
         />
@@ -71,6 +79,10 @@ const QuestionPage = ({ users }) => {
     </Auth>
   );
 };
+
+function redirectTo(href) {
+  window.location.href = href;
+}
 
 function Auth({ children, users }) {
   const [session, loading] = useSession();
@@ -103,7 +115,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  const res = await fetch("http://localhost:3000/users");
+  const res = await fetch("https://stormy-plateau-60436.herokuapp.com/users");
   const users = await res.json();
 
   if (!users) {
