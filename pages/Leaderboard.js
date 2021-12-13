@@ -108,7 +108,7 @@ export default function leaderboard({ users }) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const res = await fetch("https://stormy-plateau-60436.herokuapp.com/users");
   const users = await res.json();
 

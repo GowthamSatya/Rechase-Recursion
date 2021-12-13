@@ -9,6 +9,7 @@ const QuestionPage = ({ users }) => {
   const router = useRouter();
   const [answer, setAnswer] = useState("");
   const [question, setQuestion] = useState({});
+  const [clicked, setClicked] = useState(false);
   const [questionId, setQuestionId] = useState(1);
   const [user, setUser] = useState({});
 
@@ -65,12 +66,7 @@ const QuestionPage = ({ users }) => {
                 }
               );
 
-              setQuestionId(question.id + 1);
-              if (question.id > 3) {
-                redirectTo("/");
-              } else {
-                redirectTo(`/questions/${question.id + 1}`);
-              }
+              setClicked(true);
 
               const body = await response.json();
             } else {
