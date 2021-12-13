@@ -4,7 +4,7 @@ import Head from "next/head";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import TeamBox from "../components/teamBox";
-import Stats from "../components/stats";
+import Stats from "../components/Stats";
 import Request from "../components/JoinTeam";
 import JoinTeam from "../components/JoinTeam";
 import { useSession } from "next-auth/client";
